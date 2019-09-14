@@ -77,3 +77,17 @@ resource "aws_route_table" "public-route-table-B" {
   }
 }
 
+resource "aws_route_table_association" "public-route-table-association-A" {
+  subnet_id = "${aws_subnet.public-subnet-A.id}"
+  route_table_id = "${aws_route_table.public-route-table-A.id}"
+}
+
+resource "aws_route_table_association" "public-route-table-association-B" {
+  subnet_id = "${aws_subnet.public-subnet-B.id}"
+  route_table_id = "${aws_route_table.public-route-table-B.id}"
+}
+
+resource "aws_eip" "elastic_ip_address" {
+  vpc = true
+}
+
