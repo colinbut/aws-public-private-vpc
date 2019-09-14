@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "eu-west-2"
+}
+
 resource "aws_vpc" "VPC" {
   cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -46,3 +50,30 @@ resource "aws_subnet" "private-subnet-B" {
     Name = "private-subnet-B"
   }
 }
+
+resource "aws_route_table" "public-route-table-A" {
+  vpc_id = "${aws_vpc.VPC.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.public-private-vpc-IGW.id}"
+  }
+
+  tags = {
+    Name = "PublicRouteTableA"
+  }
+}
+
+resource "aws_route_table" "public-route-table-B" {
+  vpc_id = "${aws_vpc.VPC.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.public-private-vpc-IGW.id}"
+  }
+
+  tags = {
+    Name = "PublicRouteTableB"
+  }
+}
+
