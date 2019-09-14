@@ -98,4 +98,39 @@ resource "aws_nat_gateway" "nat_gateway" {
   depends_on = ["aws_internet_gateway.public-private-vpc-IGW"]
 }
 
+resource "aws_route_table" "private-route-table-A" {
+  vpc_id = "${aws_vpc.VPC.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = "${aws_nat_gateway.nat_gateway.id}"
+  }
+
+  tags = {
+    Name = "PrivateRouteTableA"
+  }
+}
+
+resource "aws_route_table" "private-route-table-B" {
+  vpc_id = "${aws_vpc.VPC.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = "${aws_nat_gateway.nat_gateway.id}"
+  }
+
+  tags = {
+    Name = "PrivateRouteTableB"
+  }
+}
+
+resource "aws_route_table_association" "private-route-table-association-A" {
+  subnet_id = "${aws_subnet.private-subnet-A.id}"
+  route_table_id = "${aws_route_table.private-route-table-A.id}"
+}
+
+resource "aws_route_table_association" "private-route-table-association-B" {
+  subnet_id = "${aws_subnet.private-subnet-B.id}"
+  route_table_id = "${aws_route_table.private-route-table-B.id}"
+}
 
