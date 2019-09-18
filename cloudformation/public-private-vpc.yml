@@ -1,5 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Template to create a Public and Private subnet VPC
+Paramters:
+  NumberOfAZs:
+    Type: Number
+    AllowedValues:
+    - 1
+    - 2
+    Default: 2
+    Description: How many Availability Zones you wish to utilize?
 Resources:
   VPC:
     Type: AWS::EC2::VPC
