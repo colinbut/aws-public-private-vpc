@@ -8,6 +8,15 @@ Paramters:
     - 2
     Default: 2
     Description: How many Availability Zones you wish to utilize?
+  PrivateSubnets:
+    Type: String
+    AllowedValues:
+    - True
+    - False
+    Default: True
+    Description: Do you want to create private subnets?
+Conditions:
+  BuildPrivateSubnets: !Equals [ !Ref PrivateSubnets, True ]
 Resources:
   VPC:
     Type: AWS::EC2::VPC
