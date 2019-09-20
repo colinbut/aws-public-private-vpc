@@ -136,6 +136,7 @@ Resources:
   # TODO repeat for private subnet b
   NatGateway:
     Type: AWS::EC2::NatGateway
+    Condition: BuildPrivateSubnets
     Properties:
       AllocationId: !GetAtt ElasticIpAddress.AllocationId
       SubnetId: !Ref PublicSubnetA
@@ -144,5 +145,6 @@ Resources:
         Value: !Sub NAT-${AWS::StackName}
   ElasticIpAddress:
     Type: AWS::EC2::EIP
+    Condition: BuildPrivateSubnets
     Properties:
       Domain: VPC
