@@ -124,12 +124,14 @@ Resources:
         Value: !Join ['', [!Ref "AWS::StackName", "-PrivateRouteTableA"]]
   PrivateRouteA:
     Type: AWS::EC2::Route
+    Condition: BuildPrivateSubnets
     Properties:
       RouteTableId: !Ref PrivateRouteTableA
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref NatGateway
   PrivateSubnetARouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: BuildPrivateSubnets
     Properties:
       SubnetId: !Ref PrivateSubnetA
       RouteTableId: !Ref PrivateRouteTableA
