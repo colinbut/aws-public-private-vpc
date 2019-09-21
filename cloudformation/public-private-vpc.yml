@@ -24,6 +24,8 @@ Paramters:
     Description: What Type of NAT to use for private instances?
 Conditions:
   BuildPrivateSubnets: !Equals [ !Ref PrivateSubnets, True ]
+  BuildNATGateway: !And [ !Equals[ !Ref PrivateSubnets, True ], !Equals [ !Ref NATType, "NAT Gateway" ]]
+  BuildNATInstance: !And [ !Equals[ !Ref PrivateSubnets, True ], !Equals [ !Ref NATType, "EC2 NAT Instance" ]] 
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -145,7 +147,7 @@ Resources:
   # TODO repeat for private subnet b
   NatGateway:
     Type: AWS::EC2::NatGateway
-    Condition: BuildPrivateSubnets
+    Condition: BuildNATGateway
     Properties:
       AllocationId: !GetAtt ElasticIpAddress.AllocationId
       SubnetId: !Ref PublicSubnetA
@@ -154,6 +156,6 @@ Resources:
         Value: !Sub NAT-${AWS::StackName}
   ElasticIpAddress:
     Type: AWS::EC2::EIP
-    Condition: BuildPrivateSubnets
+    Condition: BuildNATGateway
     Properties:
       Domain: VPC
