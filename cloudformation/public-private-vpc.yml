@@ -15,6 +15,13 @@ Paramters:
     - False
     Default: True
     Description: Do you want to create private subnets?
+  NATType:
+    Type: String
+    AllowedValues:
+    - "EC2 NAT Instance"
+    - "NAT Gateway"
+    Default: "NAT Gateway"
+    Description: What Type of NAT to use for private instances?
 Conditions:
   BuildPrivateSubnets: !Equals [ !Ref PrivateSubnets, True ]
 Resources:
