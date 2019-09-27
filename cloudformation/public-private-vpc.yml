@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Template to create a Public and Private subnet VPC
-Paramters:
+Parameters:
   NumberOfAZs:
     Type: Number
     AllowedValues:
@@ -24,8 +24,8 @@ Paramters:
     Description: What Type of NAT to use for private instances?
 Conditions:
   BuildPrivateSubnets: !Equals [ !Ref PrivateSubnets, True ]
-  BuildNATGateway: !And [ !Equals[ !Ref PrivateSubnets, True ], !Equals [ !Ref NATType, "NAT Gateway" ]]
-  BuildNATInstance: !And [ !Equals[ !Ref PrivateSubnets, True ], !Equals [ !Ref NATType, "EC2 NAT Instance" ]] 
+  BuildNATGateway: !And [ !Equals [ !Ref PrivateSubnets, True ], !Equals [ !Ref NATType, "NAT Gateway" ] ]
+  BuildNATInstance: !And [ !Equals [ !Ref PrivateSubnets, True ], !Equals [ !Ref NATType, "EC2 NAT Instance" ] ] 
 Resources:
   VPC:
     Type: AWS::EC2::VPC
