@@ -1,6 +1,6 @@
 # AWS Public-Private - VPC
 
-This repo contains an examples of both a Cloudformation template and a Terraform file to build a VPC with 2x Public Subnets & 2x Private Subnets
+This repo contains an examples of both a Cloudformation template and a Terraform configuration to build a VPC with 2x Public Subnets & 2x Private Subnets
 
 An Internet Gateway is launched and is attached to the VPC so that outbound & inbound internet traffic permits
 
